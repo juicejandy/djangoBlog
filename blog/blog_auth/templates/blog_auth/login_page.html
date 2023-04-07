@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %} Log In! {% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        {{ error }}
+        <p><label for="username_id">Username</label>
+        <input type="text" id="username_id" name="username" required></p>
+        <p><label for="password_id">Password</label>
+        <input type="password" id="password_id" name="password" required></p>
+        <p><input type="submit" value="Log In"></p>
+    </form>
+{% endblock %}
