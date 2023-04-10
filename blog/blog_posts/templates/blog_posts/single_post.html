@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %} See post {% endblock %}
+
+{% block content %}
+    <p><b>Publication name: </b> {{ post.title }} | <i>Author: </i> {{ post.profile }}</p>
+    <p><b>When published: </b>{{ post.pub_date }}</p>
+    <p><b>Post text:</b></p>
+    <p>{{ post.content }}</p>
+    <p><b>COMMENTS:</b></p>
+    {% for comment in post.comment_set.all %}
+        <p><i>Author: </i>{{ comment.user }}</p>
+        <p>{{ comment }}</p>
+        <p> When published: {{ comment.pub_date}}</p>
+        <br>
+        {% empty %}
+        <p><i>It's not comments yet</i></p>
+    {% endfor %}
+    <a href="{% url 'blog_posts:posts_page' %}">Back</a>
+{% endblock %}
