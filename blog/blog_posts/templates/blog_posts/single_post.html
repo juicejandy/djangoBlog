@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% block title %} See post {% endblock %}
+
 {% block content %}
     <p><b>Publication name: </b> {{ post.title }} | <i>Author: </i> {{ post.profile }}</p>
     <p><b>When published: </b>{{ post.pub_date }}</p>
@@ -14,5 +16,5 @@
         {% empty %}
         <p><i>It's not comments yet</i></p>
     {% endfor %}
-    <a href="{% url 'posts:home' %}">Back</a>
+    <a href="{% url 'blog_posts:posts_page' %}">Back</a>
 {% endblock %}
