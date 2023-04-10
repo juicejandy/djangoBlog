@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1> POSTS </h1>
+    {% for post in posts  %}
+        <br>
+        <p><b>Publication name: </b> {{ post.title }} | <i>Author: </i> {{ post.profile }}</p>
+        <a href="{% url 'posts:single_post' post.pk %}">See post</a>
+        <p><b>When published: </b>{{ post.pub_date }}</p>
+        <p><b>Post text:</b></p>
+        <p>{{ post.content }}</p>
+        <p><b>COMMENTS:</b></p>
+            {% for comment in post.comment_set.all %}
+                <p><i>Author: </i>{{ comment.user }}</p>
+                <p>{{ comment }}</p>
+                <p> When published: {{ comment.pub_date}}</p>
+                <br>
+                {% empty %}
+                <p><i>It's not comments yet</i></p>
+            {% endfor %}
+        <hr>
+    {% endfor %}
+{% endblock %}
