@@ -18,13 +18,14 @@
         <p><b>Publication name: </b> {{ post.title }} | <i>Author: </i> {{ post.profile }}</p>
         <a href="{% url 'blog_posts:single_post' post.pk %}">See post</a>
         {% if request.user == post.profile %}
-        <a href="{% url 'blog_edit:change_post' post.pk %}">Edit</a>
+            <a href="{% url 'blog_edit:change_post' post.pk %}">Edit</a>
+            <a href={% url 'blog_edit:delete_post' post.pk %}>Delete</a>
         {% endif %}
         <p><b>When published: </b>{{ post.pub_date }}</p>
         <p><b>Post text:</b></p>
         <p>{{ post.content }}</p>
-        <p><b>COMMENTS:</b></p>
-        {% for comment in post.comment_set.all %}
+        <p><b>COMMENTS:</b> <a href="{% url 'blog_edit:add_comment' post.pk %}">Add comment</a></p>
+        {% for comment in post.comment_set.all|slice:":3" %}
             <p><i>Author: </i>{{ comment.user }}</p>
             <p>{{ comment }}</p>
             <p> When published: {{ comment.pub_date}}</p>
