@@ -8,10 +8,9 @@ def home_page(request):
 
 
 def posts_page(request):
-    profiles = Profile.objects.all()
-    posts = Post.objects.all()
+    posts = Post.objects.all().order_by('-pub_date')
 
-    return render(request, 'blog_posts/posts.html', {'profiles': profiles, 'posts': posts})
+    return render(request, 'blog_posts/posts.html', {'posts': posts})
 
 
 def single_post(request, pk):

@@ -6,6 +6,7 @@
     {% if user.is_authenticated %}
         <p>Hello {{ user.username }}</p>
         <a href="{% url 'blog_auth:logout_page' %}">Log Out</a>
+        <p><a href="{% url 'blog_edit:create_post_page' %}">Create New Post</a></p>
     {% else %}
         <p>You're not logged in</p>
         <a href="{% url 'blog_auth:login_page' %}">Sign In</a> <br>
@@ -16,6 +17,9 @@
         <br>
         <p><b>Publication name: </b> {{ post.title }} | <i>Author: </i> {{ post.profile }}</p>
         <a href="{% url 'blog_posts:single_post' post.pk %}">See post</a>
+        {% if request.user == post.profile %}
+        <a href="{% url 'blog_edit:change_post' post.pk %}">Edit</a>
+        {% endif %}
         <p><b>When published: </b>{{ post.pub_date }}</p>
         <p><b>Post text:</b></p>
         <p>{{ post.content }}</p>
@@ -27,6 +31,7 @@
             <br>
             {% empty %}
             <p><i>It's not comments yet</i></p>
+
         {% endfor %}
         <hr>
     {% endfor %}
