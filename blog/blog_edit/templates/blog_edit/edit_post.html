@@ -8,4 +8,6 @@
         {{ form.as_p }}
         <input type="submit" value="Edit Post">
     </form>
+    <br>
+    <a href="{% url 'blog_posts:posts_page' %}">Back To Posts</a>
 {% endblock %}

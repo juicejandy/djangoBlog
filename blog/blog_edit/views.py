@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from blog_posts.models import Post, Comment
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, UserForm
+from django.contrib.auth import get_user_model
+
+User = get_user_model()
 
 
 def create_page(request):
@@ -27,7 +30,7 @@ def change_post(request, pk):
             return redirect('blog_posts:posts_page')
     else:
         form = PostForm(instance=post)
-    return render(request, 'blog_edit/create_post.html', {'form': form})
+    return render(request, 'blog_edit/edit_post.html', {'form': form})
 
 
 def delete_post(request, pk):
@@ -48,3 +51,21 @@ def add_comment(request, pk):
     else:
         form = CommentForm()
     return render(request, 'blog_edit/add_comment.html', {'form': form})
+
+
+def del_comment(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    comment.delete()
+    return redirect('blog_posts:posts_page')
+
+
+def edit_user(request, pk):
+    user = User.objects.get(pk=pk)
+    if request.method == 'POST':
+        form = UserForm(request.POST, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('blog_posts:posts_page')
+    else:
+        form = UserForm(instance=user)
+    return render(request, 'blog_edit/edit_user.html', {'form': form})
