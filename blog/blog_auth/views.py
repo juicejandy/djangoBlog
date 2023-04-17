@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from blog_posts.models import Comment
+from django.contrib.auth.decorators import login_required
 
 
 def login_page(request):
@@ -22,7 +23,7 @@ def login_page(request):
 
 def logout_page(request):
     logout(request)
-    return redirect('blog_posts:posts_page')
+    return redirect('blog_posts:home_page')
 
 
 def registration_page(request):

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Delete Profile {% endblock %}
+
+{% block content %}
+    <p>Are you sure to delete user {{ user }}</p>
+<form method="post">
+    {% csrf_token %}
+    <input type="submit" value="Yes">
+    <a href="{% url 'blog_edit:edit_user' user.pk %}">No</a>
+</form>
+{% endblock %}

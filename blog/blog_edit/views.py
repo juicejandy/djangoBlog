@@ -69,3 +69,10 @@ def edit_user(request, pk):
     else:
         form = UserForm(instance=user)
     return render(request, 'blog_edit/edit_user.html', {'form': form})
+
+
+def delete_profile(request):
+    if request.method == 'POST':
+        request.user.delete()
+        return redirect('blog_posts:home_page')
+    return render(request, 'blog_edit/delete_profile.html')
