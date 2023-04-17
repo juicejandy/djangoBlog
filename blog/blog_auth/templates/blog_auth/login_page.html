@@ -3,9 +3,6 @@
 {% block title %} Log In! {% endblock %}
 
 {% block content %}
-    {% for comment in a %}
-    {{ comment }}
-    {% endfor %}
     <form method="post">
         {% csrf_token %}
         {{ error }}
