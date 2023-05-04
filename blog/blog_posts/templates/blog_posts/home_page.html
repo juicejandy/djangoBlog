@@ -3,8 +3,49 @@
 {% block title %} Home Page {% endblock %}
 
 {% block content %}
-<h1>Welcome to Home Page</h1>
-    <a href="{% url 'blog_auth:login_page' %}">Sign In</a> <br>
-    <a href="{% url 'blog_auth:registration_page' %}">Registration</a>
-    <p>You can go to <a href="{% url 'blog_posts:posts_page' %}">Posts Page</a></p>
+    {% if messages %}
+        {% for message in messages %}
+            <div class="alert alert-success alert-dismissible fade show mb-2" role="alert">
+                <p>{{ message }}</p>
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="text-center pt-4">
+        <h1>Welcome to Home Page</h1>
+        <p>You can go to <a href="{% url 'blog_posts:posts_page' %}">Posts Page</a></p>
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla eros velit, volutpat non turpis in,
+            facilisis imperdiet mi. Suspendisse vitae mauris cursus dui dapibus congue ut a nunc.
+            Aliquam id massa non leo convallis interdum in ut libero. Vestibulum fringilla eu lectus non vehicula.
+            Suspendisse tellus ex, lacinia eget consectetur nec, feugiat non augue.
+            Vestibulum iaculis ipsum at est eleifend euismod nec id enim. Nullam posuere mattis libero,
+            et porttitor elit. Curabitur ac viverra dolor. Nullam ut scelerisque erat. Vestibulum ut tellus enim.
+            Maecenas mollis ante risus, sit amet sodales mauris condimentum eu.
+        </p>
+
+        <p>
+            In ultrices, ligula vitae placerat vestibulum, enim eros fringilla risus,
+            sit amet aliquet magna orci id arcu. Integer egestas fringilla erat, ut gravida sem cursus nec.
+            Nam urna lacus, mattis ac ligula eget, viverra porta mi. Cras vitae feugiat odio.
+            Quisque ut maximus arcu. Integer congue dolor ut augue tincidunt, ac mollis massa imperdiet.
+            Proin laoreet non ante nec congue. Maecenas tempus tempor velit et rutrum. Nunc enim justo,
+            tincidunt a tortor a, euismod mollis velit. Duis eget posuere erat, sed commodo erat.
+            Donec non ultricies purus, vel pulvinar neque. Proin ultricies diam eu nisl gravida imperdiet.
+            Duis pellentesque sit amet nibh hendrerit hendrerit.
+        </p>
+
+        <p>
+            Maecenas pharetra ante nec sollicitudin egestas. Ut nec nisi sapien. Mauris ut elit suscipit,
+            vestibulum erat in, imperdiet nulla. Fusce sed faucibus purus. Duis vehicula diam tempor odio gravida,
+            ac elementum leo volutpat. In ac fermentum velit. Maecenas et commodo dolor. Vestibulum consequat,
+            ipsum a lacinia tincidunt, lacus sem laoreet dui, sed maximus magna dolor vitae dolor.
+            Vivamus congue est in dapibus malesuada. Donec finibus fringilla magna eget feugiat.
+            Cras elementum arcu sollicitudin ligula laoreet porta. Ut efficitur metus nec ante eleifend,
+            nec tincidunt ipsum faucibus. Quisque pretium, sapien ac luctus scelerisque, enim orci sagittis erat,
+            sit amet lobortis nibh justo ut justo. Nullam venenatis id urna vel hendrerit. Nulla at mattis risus,
+            vel hendrerit quam.
+        </p>
+    </div>
 {% endblock %}

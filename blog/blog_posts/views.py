@@ -1,6 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.shortcuts import redirect
 from .models import *
+from blog_edit.forms import CommentForm
+from django.urls import reverse
 
 
 def home_page(request):
@@ -15,4 +17,13 @@ def posts_page(request):
 
 def single_post(request, pk):
     post = Post.objects.get(pk=pk)
-    return render(request, 'blog_posts/single_post.html', {'post': post})
+    if request.method == 'POST':
+        form = CommentForm(request.POST)
+        if form.is_valid():
+            text = form.cleaned_data.get('text')
+            print(f'text {text} \n post {post} \n request.user {request.user} \n')
+            Comment.objects.create(text=text, user=request.user, post=post)
+            return redirect(reverse('blog_posts:single_post', args=[pk]))
+    else:
+        form = CommentForm()
+    return render(request, 'blog_posts/single_post.html', {'post': post, 'form': form})

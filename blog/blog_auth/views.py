@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.forms import UserCreationForm
 from blog_posts.models import Comment
-from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 
 def login_page(request):
@@ -13,10 +13,11 @@ def login_page(request):
         user = authenticate(username=username, password=password)
         if user is not None:
             login(request, user)
+            messages.success(request, f'Greetings {user.username}!')
             return redirect('blog_posts:posts_page')
         else:
-            error = 'Invalid login or password'
-            return render(request, 'blog_auth/login_page.html', {'error': error})
+            messages.error(request, 'Invalid login or password')
+            return redirect('blog_auth:login_page')
 
     return render(request, 'blog_auth/login_page.html', {'a': a})
 
@@ -32,7 +33,11 @@ def registration_page(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('blog_posts:posts_page')
+            messages.success(request, f'Greetings {user.username}!')
+            return redirect('blog_posts:home_page')
+        else:
+            messages.error(request, 'Invalid login or password!')
+            return redirect('blog_auth:registration_page')
     else:
         form = UserCreationForm()
     return render(request, 'blog_auth/registration_page.html', {'form': form})

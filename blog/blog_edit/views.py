@@ -39,24 +39,12 @@ def delete_post(request, pk):
     return redirect('blog_posts:posts_page')
 
 
-def add_comment(request, pk):
-    post = Post.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = CommentForm(request.POST)
-        if form.is_valid():
-            text = form.cleaned_data.get('text')
-            print(f'text {text} \n post {post} \n request.user {request.user} \n')
-            Comment.objects.create(text=text, user=request.user, post=post)
-            return redirect('blog_posts:posts_page')
-    else:
-        form = CommentForm()
-    return render(request, 'blog_edit/add_comment.html', {'form': form})
-
-
 def del_comment(request, pk):
+    print(pk)
     comment = Comment.objects.get(pk=pk)
+    print(comment)
     comment.delete()
-    return redirect('blog_posts:posts_page')
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 def edit_user(request, pk):

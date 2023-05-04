@@ -4,9 +4,10 @@
 
 {% block content %}
     <p>Are you sure to delete user {{ user }}</p>
-<form method="post">
-    {% csrf_token %}
-    <input type="submit" value="Yes">
-    <a href="{% url 'blog_edit:edit_user' user.pk %}">No</a>
-</form>
+    <form method="post">
+        {% csrf_token %}
+        <input role="button" class="btn btn-danger" type="submit" value="Yes">
+        <a class="btn btn-secondary" href="{% url 'blog_edit:edit_user' user.pk %}">No</a>
+    </form>
 {% endblock %}
+
