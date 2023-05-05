@@ -6,10 +6,11 @@ from blog_edit.forms import CommentForm
 from django.urls import reverse
 from django.db.models import Q
 from .models import Post
+from django.views.generic import TemplateView
 
 
-def home_page(request):
-    return render(request, 'blog_posts/home_page.html')
+class HomePage(TemplateView):
+    template_name = 'blog_posts/home_page.html'
 
 
 @login_required
