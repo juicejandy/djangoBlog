@@ -6,18 +6,20 @@ from blog_edit.forms import CommentForm
 from django.urls import reverse
 from django.db.models import Q
 from .models import Post
-from django.views.generic import TemplateView
+from django.views.generic import TemplateView, ListView
 
 
 class HomePage(TemplateView):
     template_name = 'blog_posts/home_page.html'
 
 
-@login_required
-def posts_page(request):
-    posts = Post.objects.all().order_by('-pub_date')
-
-    return render(request, 'blog_posts/posts.html', {'posts': posts})
+class PostsPage(ListView):
+    model = Post
+    template_name = 'blog_posts/posts.html'
+    context_object_name = 'posts'
+    
+    def get_queryset(self):
+        return Post.objects.order_by('-pub_date')
 
 
 def single_post(request, pk):
