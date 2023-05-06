@@ -9,11 +9,11 @@ from .models import Post
 from django.views.generic import TemplateView, ListView
 
 
-class HomePage(TemplateView):
+class HomePageView(TemplateView):
     template_name = 'blog_posts/home_page.html'
 
 
-class PostsPage(ListView):
+class PostsPageView(ListView):
     model = Post
     template_name = 'blog_posts/posts.html'
     context_object_name = 'posts'
@@ -37,7 +37,11 @@ def single_post(request, pk):
     return render(request, 'blog_posts/single_post.html', {'post': post, 'form': form, 'comments': comments})
 
 
-def search_page(request):
-    query = request.GET.get('query')
-    results = Post.objects.filter(Q(title__contains=query) | Q(content__contains=query))
-    return render(request, 'blog_posts/search_page.html', {'results': results})
+class SearchPageView(ListView):
+    template_name = 'blog_posts/search_page.html'
+    context_object_name = 'results'
+
+    def get_queryset(self):
+        query = self.request.GET.get('query')
+        queryset = Post.objects.filter(Q(title__contains=query) | Q(content__contains=query))
+        return queryset
