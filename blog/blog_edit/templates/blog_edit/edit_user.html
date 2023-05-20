@@ -23,5 +23,5 @@
         <br>
         <a href="{% url 'blog_posts:posts_page' %}" role="button" class="btn btn-secondary">Back To Posts</a>
         <br>
-        <p>Do you want delete your Profile? <a href="{% url 'blog_edit:delete_profile' %}">Delete</a></p>
+        <p>Do you want delete your Profile? <a href="{% url 'blog_edit:delete_profile' user.pk %}">Delete</a></p>
 {% endblock %}

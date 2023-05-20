@@ -28,9 +28,9 @@ class CreatePostView(CreateView):
     form_class = PostForm
     success_url = reverse_lazy('blog_posts:posts_page')
 
-    def form_valid(self, form):
-        form.instance.profile = self.request.user
-        return super().form_valid(form)
+    # def form_valid(self, form):
+    #     form.instance.profile = self.request.user
+    #     return super().form_valid(form)
 
 
 # def change_post(request, pk):
@@ -102,18 +102,20 @@ class ProfileUpdateView(UpdateView):
     template_name = 'blog_edit/edit_user.html'
     success_url = reverse_lazy('blog_posts:posts_page')
 
-def delete_profile(request):
-    if request.method == 'POST':
-        request.user.delete()
-        return redirect('blog_posts:home_page')
-    return render(request, 'blog_edit/delete_profile.html')
+
+# def delete_profile(request):
+#     if request.method == 'POST':
+#         request.user.delete()
+#         return redirect('blog_posts:home_page')
+#     return render(request, 'blog_edit/delete_profile.html')
 
 
-# class ProfileDeleteView(DeleteView):
-#     model = User
-#     template_name = 'blog_edit/delete_profile.html'
-#
-#     def post(self, request, *args, **kwargs):
-#         return self.delete(request, *args, **kwargs)
+class ProfileDeleteView(DeleteView):
+    model = User
+    template_name = 'blog_edit/delete_profile.html'
+    success_url = reverse_lazy('blog_posts:posts_page')
+
+    def post(self, request, *args, **kwargs):
+        return self.delete(request, *args, **kwargs)
 
 
