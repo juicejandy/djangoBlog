@@ -25,6 +25,18 @@ from django.views.generic import CreateView
 #
 #     return render(request, 'blog_auth/login_page.html', {'a': a})
 
+class MyLoginView(LoginView):
+    template_name = 'blog_auth/login_page.html'
+    next_page = reverse_lazy('blog_posts:posts_page')
+
+    def form_valid(self, form):
+        messages.success(self.request, 'You are login in')
+        return super().form_valid(form)
+
+    def form_invalid(self, form):
+        messages.error(self.request, 'Invalid login or password')
+        return self.render_to_response(self.get_context_data(form=form))
+
 
 # def logout_page(request):
 #     logout(request)
@@ -46,12 +58,17 @@ from django.views.generic import CreateView
 #         form = UserCreationForm()
 #     return render(request, 'blog_auth/registration_page.html', {'form': form})
 
+
 class RegistrationView(CreateView):
     template_name = 'blog_auth/registration_page.html'
     form_class = UserCreationForm
     success_url = reverse_lazy('blog_auth:login_page')
 
+    def dispatch(self, request, *args, **kwargs):
+        if self.request.user.is_authenticated:
+            return redirect('blog_posts:posts_page')
+        return super().dispatch(request, *args, **kwargs)
+
     def form_valid(self, form):
         messages.success(self.request, 'You create a new profile. Please Log In!')
         return super().form_valid(form)
-

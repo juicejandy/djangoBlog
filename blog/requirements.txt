@@ -1,0 +1,5 @@
+asgiref==3.6.0
+backports.zoneinfo==0.2.1
+Django==4.2
+django-posts==0.3.0
+sqlparse==0.4.3
